@@ -18,6 +18,7 @@ class Board
 
     return 1 if sums.include? 3
     return -1 if sums.include? -3
+    return 0 if filled?
     nil
   end
 
