@@ -1,10 +1,18 @@
 class Board
-  DISPLAY = {-1 => 'X', 1 => 'O', 0 => ' '}
+  VISUAL_REPRESENTATION = {-1 => 'X', 1 => 'O', 0 => ' '}
 
   def initialize(spaces = nil)
     @spaces = spaces || [[0, 0, 0],
                          [0, 0, 0],
                          [0, 0, 0]]
+  end
+
+  def show
+    (0..2).map { |row_number| show_row(row_number) }.join("\n")
+  end
+
+  def filled?
+    !(@spaces.flatten.include? 0)
   end
 
   def winner
@@ -22,19 +30,11 @@ class Board
     nil
   end
 
-  def filled?
-    !(@spaces.flatten.include? 0)
-  end
-
-  def show
-    (0..2).map { |row| show_row(row) }.join("\n")
-  end
-
   private
 
-  def show_row(row)
-    filler_row = (row == 0 ? '' : '-----------')
-    important_row = (0..2).map { |col| DISPLAY[@spaces[row][col]] }.join(' | ')
+  def show_row(row_number)
+    filler_row = (row_number == 0 ? '' : '-----------')
+    important_row = (0..2).map { |col_number| VISUAL_REPRESENTATION[@spaces[row_number][col_number]] }.join(' | ')
     filler_row + "\n " + important_row
   end
 end
