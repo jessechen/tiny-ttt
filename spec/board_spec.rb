@@ -38,7 +38,7 @@ describe Board do
 
     it 'is set if a player wins vertically' do
       expect(Board.new([[-1, -1,  1],
-                        [-1, -1,  1],
+                        [ 0, -1,  1],
                         [ 0,  0,  1]]).winner).to eq(1)
     end
 
@@ -48,12 +48,26 @@ describe Board do
                         [ 0,  0, -1]]).winner).to eq(-1)
 
       expect(Board.new([[-1, -1,  1],
-                        [-1,  1,  0],
-                        [ 1,  0, -1]]).winner).to eq(1)
+                        [ 0,  1,  0],
+                        [ 1, -1,  0]]).winner).to eq(1)
     end
   end
 
   describe '#show' do
+    it 'produces a string representation of an empty board' do
+      expect(Board.new.show).to eq(%{
+   |   |  \n-----------
+   |   |  \n-----------
+   |   |  })
+    end
 
+    it 'represents -1s as Xs and 1s as Os' do
+      expect(Board.new([[-1, -1,  1],
+                        [ 0,  1,  0],
+                        [ 1, -1,  0]]).show).to eq(%{
+ X | X | O\n-----------
+   | O |  \n-----------
+ O | X |  })
+    end
   end
 end
