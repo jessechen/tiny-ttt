@@ -3,19 +3,27 @@ require_relative '../board'
 describe Board do
   describe '#show' do
     it 'produces a string representation of an empty board' do
-      expect(Board.new.show).to eq(%{
-   |   |  \n-----------
-   |   |  \n-----------
-   |   |  })
+      expect(Board.new.show).to have_same_stripped_lines(%{
+   |   |
+-----------
+   |   |
+-----------
+   |   |
+
+})
     end
 
     it 'represents -1s as Xs and 1s as Os' do
       expect(Board.new([[-1, -1,  1],
                         [ 0,  1,  0],
-                        [ 1, -1,  0]]).show).to eq(%{
- X | X | O\n-----------
-   | O |  \n-----------
- O | X |  })
+                        [ 1, -1,  0]]).show).to have_same_stripped_lines(%{
+ X | X | O
+-----------
+   | O |
+-----------
+ O | X |
+
+})
     end
   end
 
@@ -71,5 +79,15 @@ describe Board do
                         [ 0,  1,  0],
                         [ 1, -1,  0]]).winner).to eq(1)
     end
+  end
+end
+
+RSpec::Matchers.define :have_same_stripped_lines do
+  match do |actual|
+    lines_are_equal = actual.lines.zip(expected.lines).map do |actual_line, expected_line|
+      actual_line.strip == expected_line.strip
+    end
+
+    lines_are_equal.all?
   end
 end

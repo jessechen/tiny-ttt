@@ -1,23 +1,8 @@
-require_relative 'board'
+require_relative 'game'
 
-intro = %{
-Tiny tic-tac-toe
-----------------
-
-Pick a space on your turn ('q' to quit):
-
- 0,0 | 0,1 | 0,2
------------------
- 1,0 | 1,1 | 1,2
------------------
- 2,0 | 2,1 | 2,2
-
-}
-
-puts intro
-board = Board.new
-until board.winner do
-  puts board.show
-  puts "\nX player's turn"
-  input = gets.chomp
+game = Game.new
+game.show_intro
+until game.finished do
+  game.show_state
+  game.take_input
 end
