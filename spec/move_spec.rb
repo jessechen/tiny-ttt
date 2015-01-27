@@ -2,18 +2,18 @@ require_relative '../move'
 
 describe Move do
   describe '#valid?' do
-    it "is true if the raw input is a quit request" do
+    it 'is true if the raw input is a quit request' do
       expect(Move.new('q', -1).valid?).to eq(true)
     end
 
-    it "is true if the raw input can be coerced into an integer from 1 to 9" do
+    it 'is true if the raw input can be coerced into an integer from 1 to 9' do
       expect(Move.new('1', -1).valid?).to eq(true)
       expect(Move.new('9', 1).valid?).to eq(true)
       expect(Move.new("\n 5  ", -1).valid?).to eq(true)
       expect(Move.new('1abc', nil).valid?).to eq(true)
     end
 
-    it "is false otherwise" do
+    it 'is false otherwise' do
       expect(Move.new('10', -1).valid?).to eq(false)
       expect(Move.new('abc1', 1).valid?).to eq(false)
       expect(Move.new('quit', -1).valid?).to eq(false)
@@ -28,7 +28,7 @@ describe Move do
       expect(Move.new("\n q  ", nil).quit_request?).to eq(true)
     end
 
-    it "is false otherwise" do
+    it 'is false otherwise' do
       expect(Move.new('QQ', -1).quit_request?).to eq(false)
       expect(Move.new('1', 1).quit_request?).to eq(false)
       expect(Move.new('quit', -1).quit_request?).to eq(false)
@@ -37,7 +37,7 @@ describe Move do
   end
 
   describe '#initialize' do
-    it "calculates the x and y coordinates for valid moves" do
+    it 'calculates the x and y coordinates for valid moves' do
       expect(Move.new('1', -1)).to have_coordinates([0, 0])
       expect(Move.new('2',  1)).to have_coordinates([1, 0])
       expect(Move.new('3', -1)).to have_coordinates([2, 0])
