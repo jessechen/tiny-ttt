@@ -1,3 +1,5 @@
+require_relative 'move'
+
 class Board
   VISUAL_REPRESENTATION = {-1 => 'X', 1 => 'O', 0 => ' '}
 
@@ -28,6 +30,16 @@ class Board
     return -1 if sums.include? -3
     return 0 if filled?
     nil
+  end
+
+  def make(move)
+    return false unless legal? move
+    @spaces[move.y][move.x] = move.player
+  end
+
+  def legal?(move)
+    return false unless move.valid?
+    @spaces[move.y][move.x] == 0
   end
 
   private
